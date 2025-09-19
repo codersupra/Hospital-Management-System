@@ -1,166 +1,182 @@
-# Hospital Management 
+# Healthcare Management System
 
-<br/>
-<p align="center">
-  <a href="https://github.com/hamzaezzine/Hospital-Management">
-    <img src="static/img/logo.png" alt="Logo"  height="80">
-  </a>
+<div align="center">
+  <img src="static/img/logo.png" alt="Healthcare Management Logo" height="100">
+  
+  <h2>Modern Healthcare Management Portal</h2>
+  
+  <p>A comprehensive Django-based solution for managing healthcare operations, connecting doctors and patients seamlessly.</p>
+  
+  <p>
+    <a href="#features">Features</a> •
+    <a href="#installation">Installation</a> •
+    <div align="center">
 
-  <h3 align="center">Hospital Management</h3>
+    # Hospital Management System (Django)
 
-  <p align="center">
-    Hospital Management Django Website
-    <br/>
-    <br/>
-    <a href="https://github.com/hamzaezzine/Hospital-Management">View Demo</a>
-    .
-    <a href="https://github.com/hamzaezzine/Hospital-Management/issues">Report Bug</a>
-    .
-    <a href="https://github.com/hamzaezzine/Hospital-Management/issues">Request Feature</a>
-  </p>
-</p>
+    <img src="static/img/logo.png" alt="Hospital Management Logo" height="100">
 
-![Contributors](https://img.shields.io/github/contributors/hamzaezzine/Hospital-Management?color=dark-green) ![Forks](https://img.shields.io/github/forks/hamzaezzine/Hospital-Management?style=social) ![Stargazers](https://img.shields.io/github/stars/hamzaezzine/Hospital-Management?style=social) ![Issues](https://img.shields.io/github/issues/hamzaezzine/Hospital-Management) 
+    <h3>A modern, role-based healthcare platform built with Django</h3>
 
-## Table Of Contents
+    <p>
+      Doctors, Patients, and Admins collaborate through dedicated workflows: appointments, blogs, profiles, and an operational admin portal.
+    </p>
 
-- [Hospital Management](#hospital-management)
-  - [Table Of Contents](#table-of-contents)
-  - [About The Project](#about-the-project)
-  - [Built With](#built-with)
-  - [Getting Started](#getting-started)
-    - [Prerequisites](#prerequisites)
-    - [Installation](#installation)
-  - [Usage](#usage)
-  - [Live Demo](#live-demo)
-  - [Conception](#conception)
-  - [Screenshots](#screenshots)
-  - [Seed Database](#seed-database)
+    <p>
+      <a href="#features">Features</a> •
+      <a href="#tech-stack">Tech Stack</a> •
+      <a href="#getting-started">Getting Started</a> •
+      <a href="#urls">URLs</a> •
+      <a href="#screenshots">Screenshots</a>
+    </p>
 
-## About The Project
+    </div>
 
-The Hospital Management Django project is designed to streamline the interaction between doctors and patients. Doctors have the capability to upload blogs or save them as drafts, allowing them to share valuable medical information and insights. Additionally, the system enables doctors to manage appointments by checking, accepting, or canceling them. This ensures efficient scheduling and communication between healthcare providers and patients.
+    ---
 
-For patients, the project offers a user-friendly interface for registration and login. Once logged in, patients can access the blog section to read and comment on doctors' posts. The appointment booking feature allows patients to choose a specific doctor based on filters and schedule appointments. Patients can also view their past appointments, creating a comprehensive and accessible record of their medical history. Overall, this Hospital Management system enhances communication and accessibility in the healthcare process for both doctors and patients.
+    ## Features
 
-## Built With
+    ### Patients
+    - Register/login, manage profiles and avatars
+    - Book appointments with doctors and track status/history
+    - Read and comment on doctors’ blogs
 
-**FRONT-END :**
-- HTML
-- CSS 
- - JS
-- Bootstrap
-- jQuery
+    ### Doctors
+    - Write medical blogs with draft/publish workflow
+    - Manage appointments (review, accept, decline)
+    - Profile with specialty and bio
 
-**BACK-END :**
- - Python
-- Django
-- SQLite
+    ### Admin Portal (separate from Django’s /admin)
+    - Distinct AdminUser entity with employee_id, department, hire_date
+    - Role-based access (Super/System/Hospital/Department/Staff admin) and access levels
+    - Operational dashboard with user/appointment insights
 
-## Getting Started
+    ---
 
-To get started with the Hospital Management System, follow the instructions below.
+    ## Tech Stack
 
-### Prerequisites
+    - Backend: Python 3.x, Django
+    - Frontend: HTML5, CSS3, Bootstrap 5, jQuery
+    - Database: SQLite (dev) — easily swappable for PostgreSQL/MySQL
+    - Auth & Security: Django auth, CSRF protection, hashed passwords, tokenized password reset via email
+    - Assets & Media: Static files pipeline, media uploads for avatars and blog thumbnails
 
-Make sure you have the following prerequisites installed on your machine:
+    ---
 
-- Python
+    ## Project Structure (high level)
 
-### Installation
+    ```
+    hospital/                # Project settings and URL routing
+    users/                   # Custom user models (Users, AdminUser) + auth/views
+    doctors/                 # Doctor-specific models, views, urls
+    patients/                # Patient-specific models, views, urls
+    admin/                   # Operational admin app (dashboard view, urls)
+    templates/               # Jinja/Django templates (users/, doctors/, patients/)
+    static/                  # Static assets (css, js, img)
+    assets/                  # Collected static (for production)
+    media/                   # Uploaded media (avatars, blog thumbnails)
+    seed/                    # Fixtures: categories, specialties, status, time
+    ```
 
-1. Clone the repository to your local machine:
+    ---
 
-```bash
-   git clone https://github.com/hamzaezzine/Hospital-Management  
-```
+    ## Getting Started
 
-2. Create virtual environmenet  :  
-```bash
-   virtualenv env
-   or  
-   python -m venv env
-```
-then start the environmenet :  
-```bash
-  env\Scripts\activate
-```
+    ### Prerequisites
+    - Python 3.8+
+    - Git
 
-3. Navigate to the project directory:
-```bash 
-cd Hospital-Management
-```
+    ### Setup
 
-5. Install the required dependencies:
-```bash
-pip install -r requirements.txt
-```
+    ```bash
+    # Clone the repository
+    git clone https://github.com/codersupra/Hospital-Management-System.git
+    cd Hospital-Management-System
 
-7. Apply migrations to set up the database:
-```bash 
-python manage.py migrate
-```
+    # Create and activate a virtual environment
+    python -m venv .venv
+    # Windows PowerShell
+    .\.venv\Scripts\Activate.ps1
+    # macOS/Linux
+    source .venv/bin/activate
 
-## Usage
+    # Or use conda
+    conda create --name myenv
+    conda activate myenv
 
-1. Start the development server:  
-```bash
-python manage.py runserver
-```
+    # Install dependencies
+    pip install -r requirements.txt
 
-3. Open your web browser and visit http://localhost:8000 to access the Hospital Management System.
+    # Apply migrations
+    python manage.py makemigrations
+    python manage.py migrate
 
-4. Follow the on-screen instructions to register/login as a doctor or patient.
+    # (Optional) Load seed data
+    python manage.py loaddata seed/categories.json
+    python manage.py loaddata seed/specialities.json
+    python manage.py loaddata seed/status.json
+    python manage.py loaddata seed/time.json
 
-5. Explore the features, including blog management, appointment scheduling, and more.
+    # Create a superuser for Django admin (/admin)
+    python manage.py createsuperuser
 
-## Live Demo
-Check Website Online here : [Hospital Management](https://hamzaezzine.pythonanywhere.com/)
+    # Run the development server
+    python manage.py runserver
+    ```
 
+    Visit http://localhost:8000
 
-## Conception
-1. Database Schema
-![db](screenshots/db.png)
+    ---
 
-2. Use Case Diagram : 
-![usecase](screenshots/usecase.PNG)
+    ## Configuration
 
-## Screenshots
-- Login Page : 
-![login](screenshots/login.PNG)
+    Email (for password reset) — configure these in `hospital/settings.py`:
 
-- Register Page : 
-![register](screenshots/register.PNG)
+    ```
+    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_HOST_PORT = 587
+    EMAIL_USE_TLS = True
+    EMAIL_HOST_USER = 'your email'
+    EMAIL_HOST_PASSWORD = 'your email host password'
+    ```
 
-- Profile Page : 
-![profile](screenshots/profile.PNG)
+    Static/Media paths are already configured in settings; ensure `media/` and `static/` exist.
 
-- Blogs : 
-![blogs](screenshots/blogs.PNG)
+    ---
 
-- Upload Blog Page : 
-![upload_blog](screenshots/upload_blog.PNG)
+    ## URLs
 
-- Draft Blogs Page : 
-![draft_blog](screenshots/draft_blog.PNG)
+    ### User-facing
+    - `/login/` — User login (Patients/Doctors)
+    - `/register/` — User registration (Patients/Doctors)
+    - `/password-reset/`, `/reset/<token>/` — Password reset flow
+    - `/logout/` — Logout
 
-- Doctor Appointments Page : 
-![doctor_app](screenshots/doctor_app.PNG)
+    ### Operational Admin (custom portal)
+    - `/admin-login/` — Admin login (AdminUser)
+    - `/admin-register/` — Admin registration (AdminUser)
+    - `/admin-dashboard/` — Admin dashboard (app-level)
 
-- Patient Book Appointments Page : 
-![patient_book_app](screenshots/patient_book_app.PNG)
+    ### Django Admin (built-in)
+    - `/admin/` — Django’s default admin site (requires superuser)
 
-- Patient Confirm Appointments Page : 
-![patient_confirm_app](screenshots/patient_confirm_app.PNG)
+    Note: Custom admin URLs avoid conflicts with Django Admin by not using the `/admin/...` prefix.
 
-- Patient View Appointments Page : 
-![patient_view_app](screenshots/patient_view_app.PNG)
+    ---
 
+    ## Contributing
 
-## Seed Database
-```bash
-python manage.py loaddata seed/categories.json 
-python manage.py loaddata seed/specialities.json
-python manage.py loaddata seed/status.json
-python manage.py loaddata seed/time.json
-```
+    Contributions are welcome! Please open an issue or submit a pull request.
+
+    ---
+
+    ## License
+
+    This project is for personal use.
+
+    ---
+
+    <div align="center">
+    Made with ❤️
+    </div>
