@@ -1,182 +1,162 @@
-# Healthcare Management System
-
 <div align="center">
-  <img src="static/img/logo.png" alt="Healthcare Management Logo" height="100">
-  
-  <h2>Modern Healthcare Management Portal</h2>
-  
-  <p>A comprehensive Django-based solution for managing healthcare operations, connecting doctors and patients seamlessly.</p>
-  
-  <p>
-    <a href="#features">Features</a> •
-    <a href="#installation">Installation</a> •
-    <div align="center">
+<img src="static/img/logo.png" alt="Hospital Management Logo" height="100">
+<h1>Hospital Management System (Django)</h1>
+<p>A modern, role-based healthcare platform built with Django, connecting doctors, patients, and administrators through dedicated workflows.</p>
+<p>
+<a href="#features"><strong>Features</strong></a> •
+<a href="#tech-stack"><strong>Tech Stack</strong></a> •
+<a href="#getting-started"><strong>Getting Started</strong></a> •
+<a href="#urls"><strong>URLs</strong></a> •
+<a href="#contributing"><strong>Contributing</strong></a>
+</p>
+</div>
 
-    # Hospital Management System (Django)
+Features
+🧑‍⚕️ For Patients
+Profile Management: Register, log in, and manage personal profiles and avatars.
 
-    <img src="static/img/logo.png" alt="Hospital Management Logo" height="100">
+Appointment Booking: Book appointments with doctors and track their status (pending, accepted, declined) and view history.
 
-    <h3>A modern, role-based healthcare platform built with Django</h3>
+Engage with Content: Read and comment on medical blogs published by doctors.
 
-    <p>
-      Doctors, Patients, and Admins collaborate through dedicated workflows: appointments, blogs, profiles, and an operational admin portal.
-    </p>
+🩺 For Doctors
+Blog Management: Write, edit, and publish medical blogs with a draft/publish workflow.
 
-    <p>
-      <a href="#features">Features</a> •
-      <a href="#tech-stack">Tech Stack</a> •
-      <a href="#getting-started">Getting Started</a> •
-      <a href="#urls">URLs</a> •
-      <a href="#screenshots">Screenshots</a>
-    </p>
+Appointment Management: Review, accept, or decline appointment requests from patients.
 
-    </div>
+Professional Profile: Maintain a public profile showcasing specialty, bio, and other relevant information.
 
-    ---
+⚙️ For Administrators (Operational Portal)
+Role-Based Access Control: A distinct AdminUser model with granular roles (e.g., Super, System, Hospital, Department Admin).
 
-    ## Features
+Operational Dashboard: A custom admin portal (separate from Django's /admin) with analytics on users, appointments, and system activity.
 
-    ### Patients
-    - Register/login, manage profiles and avatars
-    - Book appointments with doctors and track status/history
-    - Read and comment on doctors’ blogs
+User Management: Oversee all user accounts and system settings.
 
-    ### Doctors
-    - Write medical blogs with draft/publish workflow
-    - Manage appointments (review, accept, decline)
-    - Profile with specialty and bio
+Tech Stack
+Backend: Python 3.x, Django
 
-    ### Admin Portal (separate from Django’s /admin)
-    - Distinct AdminUser entity with employee_id, department, hire_date
-    - Role-based access (Super/System/Hospital/Department/Staff admin) and access levels
-    - Operational dashboard with user/appointment insights
+Frontend: HTML5, CSS3, Bootstrap 5, jQuery
 
-    ---
+Database: SQLite (for development), easily swappable for PostgreSQL or MySQL.
 
-    ## Tech Stack
+Authentication & Security: Django's built-in auth, CSRF protection, hashed passwords, and tokenized password reset via email.
 
-    - Backend: Python 3.x, Django
-    - Frontend: HTML5, CSS3, Bootstrap 5, jQuery
-    - Database: SQLite (dev) — easily swappable for PostgreSQL/MySQL
-    - Auth & Security: Django auth, CSRF protection, hashed passwords, tokenized password reset via email
-    - Assets & Media: Static files pipeline, media uploads for avatars and blog thumbnails
+Assets & Media: Django's static files pipeline for CSS/JS and media handling for user-uploaded content like avatars and blog thumbnails.
 
-    ---
+Project Structure
+hospital-management-system/
+├── hospital/         # Project settings and root URL routing
+├── users/            # Custom User models (User, AdminUser) and auth views
+├── doctors/          # Doctor-specific models, views, and URLs
+├── patients/         # Patient-specific models, views, and URLs
+├── admin_portal/     # Custom operational admin app (dashboard, etc.)
+├── templates/        # Django templates organized by app
+├── static/           # Static assets (CSS, JS, images)
+├── assets/           # Collected static files for production
+├── media/            # User-uploaded media (avatars, thumbnails)
+└── seed/             # Data fixtures for initial setup (categories, specialties)
+Getting Started
+Prerequisites
+Python 3.8+
 
-    ## Project Structure (high level)
+Git
 
-    ```
-    hospital/                # Project settings and URL routing
-    users/                   # Custom user models (Users, AdminUser) + auth/views
-    doctors/                 # Doctor-specific models, views, urls
-    patients/                # Patient-specific models, views, urls
-    admin/                   # Operational admin app (dashboard view, urls)
-    templates/               # Jinja/Django templates (users/, doctors/, patients/)
-    static/                  # Static assets (css, js, img)
-    assets/                  # Collected static (for production)
-    media/                   # Uploaded media (avatars, blog thumbnails)
-    seed/                    # Fixtures: categories, specialties, status, time
-    ```
+Setup Instructions
+Clone the Repository
 
-    ---
+Bash
 
-    ## Getting Started
+git clone https://github.com/codersupra/Hospital-Management-System.git
+cd Hospital-Management-System
+Create and Activate a Virtual Environment
 
-    ### Prerequisites
-    - Python 3.8+
-    - Git
+Bash
 
-    ### Setup
+# Create the environment
+python -m venv .venv
 
-    ```bash
-    # Clone the repository
-    git clone https://github.com/codersupra/Hospital-Management-System.git
-    cd Hospital-Management-System
+# Activate the environment
+# On Windows (PowerShell):
+.\.venv\Scripts\Activate.ps1
+# On macOS/Linux (bash):
+source .venv/bin/activate
+Install Dependencies
 
-    # Create and activate a virtual environment
-    python -m venv .venv
-    # Windows PowerShell
-    .\.venv\Scripts\Activate.ps1
-    # macOS/Linux
-    source .venv/bin/activate
+Bash
 
-    # Or use conda
-    conda create --name myenv
-    conda activate myenv
+pip install -r requirements.txt
+Apply Database Migrations
 
-    # Install dependencies
-    pip install -r requirements.txt
+Bash
 
-    # Apply migrations
-    python manage.py makemigrations
-    python manage.py migrate
+python manage.py makemigrations
+python manage.py migrate
+Load Initial Data (Optional)
+This will populate the database with predefined categories, specialties, etc.
 
-    # (Optional) Load seed data
-    python manage.py loaddata seed/categories.json
-    python manage.py loaddata seed/specialities.json
-    python manage.py loaddata seed/status.json
-    python manage.py loaddata seed/time.json
+Bash
 
-    # Create a superuser for Django admin (/admin)
-    python manage.py createsuperuser
+python manage.py loaddata seed/categories.json
+python manage.py loaddata seed/specialities.json
+python manage.py loaddata seed/status.json
+python manage.py loaddata seed/time.json
+Create a Superuser
+This account is for accessing the built-in Django admin interface at /admin/.
 
-    # Run the development server
-    python manage.py runserver
-    ```
+Bash
 
-    Visit http://localhost:8000
+python manage.py createsuperuser
+Run the Development Server
 
-    ---
+Bash
 
-    ## Configuration
+python manage.py runserver
+The application will be available at http://localhost:8000.
 
-    Email (for password reset) — configure these in `hospital/settings.py`:
+Configuration
+To enable the password reset feature via email, configure your SMTP settings in hospital/settings.py:
 
-    ```
-    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-    EMAIL_HOST = 'smtp.gmail.com'
-    EMAIL_HOST_PORT = 587
-    EMAIL_USE_TLS = True
-    EMAIL_HOST_USER = 'your email'
-    EMAIL_HOST_PASSWORD = 'your email host password'
-    ```
+Python
 
-    Static/Media paths are already configured in settings; ensure `media/` and `static/` exist.
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'your-email@gmail.com'          # Your email address
+EMAIL_HOST_PASSWORD = 'your-app-password'         # Your email app password
+URLs
+The project defines distinct URL paths for different user roles to avoid conflicts.
 
-    ---
+User-facing (Doctors/Patients)
 
-    ## URLs
+/login/ — Main login page.
 
-    ### User-facing
-    - `/login/` — User login (Patients/Doctors)
-    - `/register/` — User registration (Patients/Doctors)
-    - `/password-reset/`, `/reset/<token>/` — Password reset flow
-    - `/logout/` — Logout
+/register/ — User registration page.
 
-    ### Operational Admin (custom portal)
-    - `/admin-login/` — Admin login (AdminUser)
-    - `/admin-register/` — Admin registration (AdminUser)
-    - `/admin-dashboard/` — Admin dashboard (app-level)
+/password-reset/ — Password reset request flow.
 
-    ### Django Admin (built-in)
-    - `/admin/` — Django’s default admin site (requires superuser)
+/logout/ — Logout.
 
-    Note: Custom admin URLs avoid conflicts with Django Admin by not using the `/admin/...` prefix.
+Operational Admin (Custom Portal)
 
-    ---
+/admin-login/ — Login for AdminUser roles.
 
-    ## Contributing
+/admin-register/ — Registration for AdminUser roles.
 
-    Contributions are welcome! Please open an issue or submit a pull request.
+/admin-dashboard/ — Main dashboard for operational management.
 
-    ---
+Django Admin (Built-in)
 
-    ## License
+/admin/ — The default Django admin site (requires superuser login).
 
-    This project is for personal use.
+Contributing
+Contributions are welcome! If you find a bug or have a feature request, please open an issue or submit a pull request.
 
-    ---
+License
+This project is intended for educational and personal use.
 
-    <div align="center">
-    Made with ❤️
-    </div>
+<br>
+<div align="center">
+Made with ❤️
+</div>
