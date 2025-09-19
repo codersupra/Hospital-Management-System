@@ -1,0 +1,189 @@
+{% extends 'users/base.html' %}
+
+{% block title %}Admin Registration{% endblock title %}
+
+{% block content %}
+<div class="card shadow-lg mx-auto mt-5" style="max-width: 40rem;">
+  <div class="card-body p-4">
+    <h1 class="fs-4 card-title fw-bold mb-3 text-center">Admin Registration</h1>
+
+    <form method="POST" class="needs-validation" novalidate="" autocomplete="off" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      {% if messages %}
+        {% for message in messages %}
+          {% if 'success' in message.tags %}
+            <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+              {{ message }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          {% else %}
+            <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+              {{ message }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+
+      <!-- Hospital Information -->
+      <div class="mb-3">
+        <label class="mb-2 text-muted" for="hospital_name">Hospital Name</label>
+        <input id="hospital_name" type="text" class="form-control" name="hospital_name" value="{{ hospital_name }}" required autofocus />
+        <div class="invalid-feedback">Hospital name is required</div>
+      </div>
+
+      <!-- Personal Information -->
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="mb-2 text-muted" for="first_name">First Name</label>
+          <input id="first_name" type="text" class="form-control" name="first_name" value="{{ first_name }}" required />
+          <div class="invalid-feedback">First Name is required</div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="mb-2 text-muted" for="last_name">Last Name</label>
+          <input id="last_name" type="text" class="form-control" name="last_name" value="{{ last_name }}" required />
+          <div class="invalid-feedback">Last Name is required</div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="mb-2 text-muted" for="username">Username</label>
+        <input id="username" type="text" class="form-control" name="username" value="{{ username }}" required />
+        <div class="invalid-feedback">Username is required</div>
+      </div>
+
+      <div class="mb-3">
+        <label class="mb-2 text-muted" for="email">Email Address</label>
+        <input id="email" type="email" class="form-control" name="email" value="{{ email }}" required />
+        <div class="invalid-feedback">Email is invalid</div>
+      </div>
+
+      <!-- Employee Information -->
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="mb-2 text-muted" for="employee_id">Employee ID</label>
+          <input id="employee_id" type="text" class="form-control" name="employee_id" value="{{ employee_id }}" required />
+          <div class="invalid-feedback">Employee ID is required</div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="mb-2 text-muted" for="phone">Phone Number</label>
+          <input id="phone" type="tel" class="form-control" name="phone" value="{{ phone }}" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="mb-2 text-muted" for="department">Department</label>
+          <select class="form-select" name="department" id="department" required>
+            <option value="">Select Department</option>
+            <option value="IT" {% if department == 'IT' %}selected{% endif %}>Information Technology</option>
+            <option value="HR" {% if department == 'HR' %}selected{% endif %}>Human Resources</option>
+            <option value="Finance" {% if department == 'Finance' %}selected{% endif %}>Finance</option>
+            <option value="Operations" {% if department == 'Operations' %}selected{% endif %}>Operations</option>
+            <option value="Management" {% if department == 'Management' %}selected{% endif %}>Management</option>
+            <option value="Medical" {% if department == 'Medical' %}selected{% endif %}>Medical Administration</option>
+          </select>
+          <div class="invalid-feedback">Department is required</div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="mb-2 text-muted" for="hire_date">Hire Date</label>
+          <input id="hire_date" type="date" class="form-control" name="hire_date" value="{{ hire_date }}" required />
+          <div class="invalid-feedback">Hire date is required</div>
+        </div>
+      </div>
+
+      <!-- Admin Role Information -->
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="mb-2 text-muted" for="role">Admin Role</label>
+          <select class="form-select" name="role" id="role" required>
+            <option value="">Select Role</option>
+            <option value="super_admin" {% if role == 'super_admin' %}selected{% endif %}>Super Administrator</option>
+            <option value="system_admin" {% if role == 'system_admin' %}selected{% endif %}>System Administrator</option>
+            <option value="hospital_admin" {% if role == 'hospital_admin' %}selected{% endif %}>Hospital Administrator</option>
+            <option value="department_admin" {% if role == 'department_admin' %}selected{% endif %}>Department Administrator</option>
+            <option value="staff_admin" {% if role == 'staff_admin' %}selected{% endif %}>Staff Administrator</option>
+          </select>
+          <div class="invalid-feedback">Admin role is required</div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="mb-2 text-muted" for="access_level">Access Level</label>
+          <select class="form-select" name="access_level" id="access_level" required>
+            <option value="read" {% if access_level == 'read' %}selected{% endif %}>Read Only</option>
+            <option value="write" {% if access_level == 'write' %}selected{% endif %}>Read & Write</option>
+            <option value="admin" {% if access_level == 'admin' %}selected{% endif %}>Full Admin</option>
+            <option value="super" {% if access_level == 'super' %}selected{% endif %}>Super Admin</option>
+          </select>
+          <div class="invalid-feedback">Access level is required</div>
+        </div>
+      </div>
+
+      <!-- Password Fields -->
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="mb-2 text-muted" for="password">Password</label>
+          <input id="password" type="password" class="form-control" name="password" required />
+          <div class="invalid-feedback">Password is required</div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="mb-2 text-muted" for="conf_password">Confirm Password</label>
+          <input id="conf_password" type="password" class="form-control" name="conf_password" required />
+          <div class="invalid-feedback">Password confirmation is required</div>
+        </div>
+      </div>
+
+      <!-- Address Information -->
+      <div class="mb-3">
+        <label class="mb-2 text-muted" for="address_line">Address</label>
+        <input id="address_line" type="text" class="form-control mb-2" name="address_line" value="{{ address_line }}" placeholder="Address Line" />
+        <input id="region" type="text" class="form-control mb-2" name="region" value="{{ region }}" placeholder="Region" />
+        <input id="city" type="text" class="form-control mb-2" name="city" value="{{ city }}" placeholder="City" />
+        <input id="pincode" type="text" class="form-control" name="pincode" value="{{ pincode }}" placeholder="Postal Code" />
+      </div>
+      
+      <!-- Profile Picture -->
+      <div class="mb-3 col-12">
+        <label for="profile_pic" class="form-label text-muted">Profile Picture (Optional)</label>
+        <input type="file" class="form-control p-3" name="profile_pic" id="profile_pic" accept="image/*">
+      </div>
+
+      <p class="form-text text-muted mb-3">
+        By registering you agree with our terms and conditions. All admin accounts are subject to approval.
+      </p>
+
+      <div class="align-items-center d-flex">
+        <button type="submit" class="btn btn-primary ms-auto" style="background-color: #0d6efd;">
+          Register Admin
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="card-footer py-3 border-0">
+    <div class="text-center">
+      Already have an admin account?
+      <a href="{% url 'admin_login' %}" class="text-dark">Login as Admin</a>
+    </div>
+    <div class="text-center mt-2">
+      <a href="{% url 'login' %}" class="text-muted">Back to User Login</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Form validation
+    const forms = document.querySelectorAll('.needs-validation');
+    Array.prototype.slice.call(forms).forEach(function(form) {
+      form.addEventListener('submit', function(event) {
+        if (!form.checkValidity()) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  });
+</script>
+
+{% endblock content %}
