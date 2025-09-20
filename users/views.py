@@ -212,8 +212,10 @@ def admin_login(request):
                     messages.error(request, 'Admin privileges not found. Please contact system administrator.')
                     return render(request, 'users/admin_login.html')
 
-                # Login successful
-                login(request, admin_user)
+                # Store admin info in session instead of using Django's login
+                request.session['admin_user_id'] = admin_user.id
+                request.session['is_admin_logged_in'] = True
+                
                 messages.success(request, f'Welcome back, {admin_user.get_full_name() or admin_user.username}!')
                 return redirect('admin_dashboard')
             else:
@@ -224,6 +226,13 @@ def admin_login(request):
         return render(request, 'users/admin_login.html')
     
     return render(request, 'users/admin_login.html')
+
+
+def admin_logout(request):
+    # Clear admin session data
+    request.session.flush()
+    messages.success(request, 'You have been successfully logged out.')
+    return redirect('admin_login')
 
 
 def login_view(request):
