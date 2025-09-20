@@ -1,50 +1,51 @@
 <div align="center">
-<img src="static/img/logo.png" alt="Hospital Management Logo" height="100">
-<h1>Hospital Management System (Django)</h1>
-<p>A modern, role-based healthcare platform built with Django, connecting doctors, patients, and administrators through dedicated workflows.</p>
-<p>
-<a href="#features"><strong>Features</strong></a> •
-<a href="#tech-stack"><strong>Tech Stack</strong></a> •
-<a href="#getting-started"><strong>Getting Started</strong></a> •
-<a href="#urls"><strong>URLs</strong></a> •
-<a href="#contributing"><strong>Contributing</strong></a>
-</p>
+  <img src="static/img/logo.png" alt="Hospital Management Logo" height="100">
+  <h1>Hospital Management System (Django)</h1>
+  <p>
+    A modern, role-based healthcare platform built with Django, connecting doctors, patients, and administrators through dedicated workflows.
+  </p>
+  <p>
+    <a href="#features"><strong>Features</strong></a> •
+    <a href="#tech-stack"><strong>Tech Stack</strong></a> •
+    <a href="#project-structure"><strong>Project Structure</strong></a> •
+    <a href="#getting-started"><strong>Getting Started</strong></a> •
+    <a href="#urls"><strong>URLs</strong></a> •
+    <a href="#contributing"><strong>Contributing</strong></a>
+  </p>
 </div>
 
-Features
-🧑‍⚕️ For Patients
-Profile Management: Register, log in, and manage personal profiles and avatars.
+---
 
-Appointment Booking: Book appointments with doctors and track their status (pending, accepted, declined) and view history.
+## ✨ Features
 
-Engage with Content: Read and comment on medical blogs published by doctors.
+### 🧑‍⚕️ Patients
+- **Profile Management** – Register, log in, and manage personal profiles and avatars.
+- **Appointment Booking** – Book appointments with doctors, track status (pending/accepted/declined), and view history.
+- **Content Engagement** – Read and comment on blogs published by doctors.
 
-🩺 For Doctors
-Blog Management: Write, edit, and publish medical blogs with a draft/publish workflow.
+### 🩺 Doctors
+- **Blog Management** – Write, edit, and publish blogs with a draft/publish workflow.
+- **Appointment Management** – Review, accept, or decline appointment requests.
+- **Professional Profile** – Maintain a public profile with specialty, bio, and relevant info.
 
-Appointment Management: Review, accept, or decline appointment requests from patients.
+### ⚙️ Administrators (Custom Portal)
+- **Role-Based Access Control** – Custom `AdminUser` model with granular roles (Super, System, Hospital, Department).
+- **Operational Dashboard** – Custom portal (separate from `/admin`) with analytics on users, appointments, and activity.
+- **User Management** – Manage all user accounts and system settings.
 
-Professional Profile: Maintain a public profile showcasing specialty, bio, and other relevant information.
+---
 
-⚙️ For Administrators (Operational Portal)
-Role-Based Access Control: A distinct AdminUser model with granular roles (e.g., Super, System, Hospital, Department Admin).
+## 🛠 Tech Stack
+- **Backend:** Python 3.x, Django
+- **Frontend:** HTML5, CSS3, Bootstrap 5, jQuery
+- **Database:** SQLite (dev) — easily swappable for PostgreSQL or MySQL
+- **Security:** Django auth, CSRF protection, hashed passwords, tokenized password reset via email
+- **Assets & Media:** Django static files pipeline + media handling (avatars, blog thumbnails)
 
-Operational Dashboard: A custom admin portal (separate from Django's /admin) with analytics on users, appointments, and system activity.
+---
 
-User Management: Oversee all user accounts and system settings.
+## 🗂 Project Structure
 
-Tech Stack
-Backend: Python 3.x, Django
-
-Frontend: HTML5, CSS3, Bootstrap 5, jQuery
-
-Database: SQLite (for development), easily swappable for PostgreSQL or MySQL.
-
-Authentication & Security: Django's built-in auth, CSRF protection, hashed passwords, and tokenized password reset via email.
-
-Assets & Media: Django's static files pipeline for CSS/JS and media handling for user-uploaded content like avatars and blog thumbnails.
-
-Project Structure
 hospital-management-system/
 ├── hospital/         # Project settings and root URL routing
 ├── users/            # Custom User models (User, AdminUser) and auth views
@@ -56,46 +57,47 @@ hospital-management-system/
 ├── assets/           # Collected static files for production
 ├── media/            # User-uploaded media (avatars, thumbnails)
 └── seed/             # Data fixtures for initial setup (categories, specialties)
-Getting Started
-Prerequisites
-Python 3.8+
 
-Git
+---
 
-Setup Instructions
-Clone the Repository
+## 🚀 Getting Started
 
-Bash
+### Prerequisites
+- Python **3.8+**
+- Git
 
+### Setup Instructions
+
+**1️⃣ Clone the Repository**
+```bash
 git clone https://github.com/codersupra/Hospital-Management-System.git
 cd Hospital-Management-System
-Create and Activate a Virtual Environment
-
-Bash
 
 # Create the environment
+# Create venv
 python -m venv .venv
 
-# Activate the environment
-# On Windows (PowerShell):
+# Activate environment
+# Windows (PowerShell)
 .\.venv\Scripts\Activate.ps1
-# On macOS/Linux (bash):
+# macOS/Linux (bash)
 source .venv/bin/activate
+
 Install Dependencies
 
-Bash
-
+```bash
 pip install -r requirements.txt
+
 Apply Database Migrations
 
-Bash
-
+```bash
 python manage.py makemigrations
 python manage.py migrate
+
 Load Initial Data (Optional)
 This will populate the database with predefined categories, specialties, etc.
 
-Bash
+```bash
 
 python manage.py loaddata seed/categories.json
 python manage.py loaddata seed/specialities.json
@@ -104,12 +106,12 @@ python manage.py loaddata seed/time.json
 Create a Superuser
 This account is for accessing the built-in Django admin interface at /admin/.
 
-Bash
+```bash
 
 python manage.py createsuperuser
 Run the Development Server
 
-Bash
+```bash
 
 python manage.py runserver
 The application will be available at http://localhost:8000.
